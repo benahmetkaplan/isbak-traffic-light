@@ -104,42 +104,48 @@ function App() {
     <div className="light-area">
       <div className="container">
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-12 mb-5">
             <form className="form-inline" onSubmit={handleSubmit}>
-              <div className="input-group mb-3">
+              <div className="input-group">
                 <input type="number" min="1" max="30" className="form-control" placeholder="Yeşil Süresi" onChange={handleChange} value={greenTime} />
                 <div className="input-group-append">
-                  <input className="btn btn-outline-success" type="submit" value="Yaya Butonu" />
+                  <input className="btn btn-success" type="submit" value="Yaya Butonu" />
                 </div>
               </div>
             </form>
           </div>
           <div className="col-md-4 d-flex flex-column text-center">
-            <div className={`traffic-light ${lightOne}`}>
-              <span className="red"></span>
-              <span className="yellow"></span>
-              <span className="green"></span>
+            <div className={`traffic-light shape ${lightOne}`}>
+              <div className="shadow"></div>
+              <div className="light red"></div>
+              <div className="light yellow"></div>
+              <div className="light green"></div>
             </div>
             <span className="mt-2">Grup 1</span>
           </div>
           <div className="col-md-4 d-flex flex-column text-center">
-            <div className={`traffic-light ${lightTwo}`}>
-              <span className="red"></span>
-              <span className="yellow"></span>
-              <span className="green"></span>
+            <div className={`traffic-light shape ${lightTwo}`}>
+              <div className="shadow"></div>
+              <div className="light red"></div>
+              <div className="light yellow"></div>
+              <div className="light green"></div>
             </div>
             <span className="mt-2">Grup 2</span>
           </div>
           <div className="col-md-4 d-flex flex-column text-center">
-            <div className={`traffic-light ${lightThree}`}>
-              <span className="red"></span>
-              <span className="yellow"></span>
-              <span className="green"></span>
+            <div className={`traffic-light shape ${lightThree}`}>
+              <div className="shadow"></div>
+              <div className="light red"></div>
+              <div className="light yellow"></div>
+              <div className="light green"></div>
             </div>
             <span className="mt-2">Yaya Grubu</span>
-          </div>
-          <div className="col-md-12">
-            <span className={`countdown ${countdownVal !== "" && activeStep !== "" ? '' : 'hidden'}`}>Geri Sayım: <strong>{countdownVal}</strong><br/>Aktif Adım: <strong>{activeStep}</strong></span>
+          </div>          
+          <div className="col-md-12 mt-5">
+            <span className={`countdown-area ${countdownVal !== "" && activeStep !== "" ? '' : 'hidden'}`}>
+              Geri Sayım: <strong>{countdownVal}</strong><br/>
+              Aktif Adım: <strong>{activeStep}</strong>
+            </span>
           </div>
         </div>
       </div>

@@ -7,57 +7,92 @@
 .light-area {
   display: block;
   width: 100%;
-  max-width: 300px;
+  max-width: 600px;
   margin: auto;
-  margin-top: 30px;
+  margin-top: 50px;
 }
 
 .traffic-light {
-  background-color: black;
-  width: auto;
-  height: auto;
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 7px;
-  border-radius: 10px;
-  margin: 0 auto;
+  padding: 10px;
+  background: #222;
+  border-radius: 25px;
+  border: 10px solid #111;
+  margin: auto;
+  z-index: 100;
+  width: 100%;
+  position: relative;
 }
 
-.traffic-light span {
-  width: 45px;
-  height: 45px;
-  border-radius: 100%;
+.traffic-light .light {
+  border-top: 0.8em solid black;
+  border-radius: 50%;
+  background: black;
+  width: 100px;
+  height: 100px;
+  margin: 20px auto;
+}
+
+.traffic-light .shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px 0px 0px 20px
+}
+
+.traffic-light::before {
+  content: "";
+  width: 5em;
+  height: 3em;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111;
+  z-index: 0;
+}
+
+.traffic-light::after{
+  content: "";
+  width:150px;
+  height:20px;
+  position:absolute;
+  top:110%;
+  left:50%;
+  transform: translateX(-50%);
+  background: #111;
+  z-index: 0;
+}
+
+.traffic-light .red{
+  background: rgb(192, 57, 43);
   opacity: .3;
 }
 
-.traffic-light span+span {
-  margin-top: 6px;
+.traffic-light .yellow{
+  background: rgb(251, 192, 12);
+  opacity: .3;
 }
 
-.traffic-light strong {
-  font-weight: 600;
-  color: white;
-  font-size: 25px;
-  line-height: 1;
+.traffic-light .green{
+  background: rgb(68, 189, 50);
+  opacity: .3;
 }
 
-.traffic-light span.red {
-  background: red;
+.traffic-light.red .red{
+  box-shadow: 0 30px 45px -15px rgba(192, 57, 43, 0.57);
+  opacity: 1;
 }
 
-.traffic-light span.yellow {
-  background: yellow;
+.traffic-light.yellow .yellow{
+  box-shadow: 0 30px 45px -15px rgba(251, 192, 12, 0.57);
+  opacity: 1;
 }
 
-.traffic-light span.green {
-  background: green;
-}
-
-.traffic-light.red span.red,
-.traffic-light.green span.green,
-.traffic-light.yellow span.yellow {
+.traffic-light.green .green{
+  box-shadow: 0 30px 45px -15px rgba(68, 189, 50, 0.57);
   opacity: 1;
 }
 
@@ -66,15 +101,15 @@
   border-bottom-left-radius: 0;
 }
 
-.countdown {
+.countdown-area {
   display: block;
   width: 100%;
-  margin-top: 15px;
   text-align: center;
   font-weight: 500;
-  font-size: 38px;
+  font-size: 26px;
+  clear: both;
 }
 
-.countdown strong {
+.countdown-area strong {
   font-weight: 800;
 }
