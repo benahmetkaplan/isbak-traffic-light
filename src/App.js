@@ -1,6 +1,7 @@
 import './App.css';
-
 import { useState } from 'react';
+import Light from './components/light';
+import Info from './components/info';
 
 function App() {
   
@@ -14,9 +15,11 @@ function App() {
   ];
   
   const [greenTime, setGreenTime] = useState("Yeşil Süresi");  
-  const [lightOne, setLightOne] = useState("");
-  const [lightTwo, setLightTwo] = useState("");
-  const [lightThree, setLightThree] = useState("");  
+  const [lights, setLights] = useState({
+    groupOne: '',
+    groupTwo: '',
+    groupThree: ''
+  });
   const [countdownVal, setCountdownVal] = useState("");
   const [activeStep, setActiveStep] = useState("");
   
@@ -24,9 +27,11 @@ function App() {
     event.preventDefault();
     lightingEvent((time, count) => {
       setTimeout(() => {
-        setLightOne("");          
-        setLightTwo("");          
-        setLightThree("");
+        setLights({
+          groupOne: '',
+          groupTwo: '',
+          groupThree: ''
+        });
         setCountdownVal("");
         setActiveStep("");
       }, count * time * 1000);
@@ -36,12 +41,17 @@ function App() {
   const lightingEvent = async (callback) => {
     await setActiveStep(1);
     await countDown(15, setCountdownVal);
-    await setLightThree("green");
-    await setLightOne("yellow");
-    await setLightTwo("yellow");
+    await setLights({
+      groupOne: 'yellow',
+      groupTwo: 'yellow',
+      groupThree: 'green'
+    });
     await setTimeout(async () => {
-      await setLightOne("red");
-      await setLightTwo("red");
+      await setLights({        
+        groupOne: 'red',
+        groupTwo: 'red',
+        groupThree: 'green'
+      });
     }, 7500);
     await setTimeout(async () => {
       for (let index = 0; index < steps.length; index++) {       
@@ -50,23 +60,37 @@ function App() {
         await setTimeout(async () => {
           await setActiveStep(index + 1);
           await countDown(time, setCountdownVal);       
-          await setLightOne(item[0]);          
-          await setLightTwo(item[1]);          
-          await setLightThree(item[2]);
+          await setLights({
+            groupOne: item[0],
+            groupTwo: item[1],
+            groupThree: item[2]
+          });
           if(time > 5){
             if(item[0] === "red" || item[0] === "yellow"){
               setTimeout(() => {
-                setLightOne("");
+                setLights({
+                  groupOne: "",
+                  groupTwo: lights.groupTwo,
+                  groupThree: lights.groupThree
+                });
               }, 5000);
             }
             if(item[1] === "red" || item[1] === "yellow"){
               setTimeout(() => {
-                setLightTwo("");
+                setLights({
+                  groupOne: lights.groupOne,
+                  groupTwo: "",
+                  groupThree: lights.groupThree
+                });
               }, 5000);
             }
             if(item[2] === "red" || item[2] === "yellow"){
               setTimeout(() => {
-                setLightThree("");
+                setLights({
+                  groupOne: lights.groupOne,
+                  groupTwo: lights.groupTwo,
+                  groupThree: ""
+                });
               }, 5000);
             }
           }
@@ -114,39 +138,10 @@ function App() {
               </div>
             </form>
           </div>
-          <div className="col-md-4 d-flex flex-column text-center">
-            <div className={`traffic-light shape ${lightOne}`}>
-              <div className="shadow"></div>
-              <div className="light red"></div>
-              <div className="light yellow"></div>
-              <div className="light green"></div>
-            </div>
-            <span className="mt-2">Grup 1</span>
-          </div>
-          <div className="col-md-4 d-flex flex-column text-center">
-            <div className={`traffic-light shape ${lightTwo}`}>
-              <div className="shadow"></div>
-              <div className="light red"></div>
-              <div className="light yellow"></div>
-              <div className="light green"></div>
-            </div>
-            <span className="mt-2">Grup 2</span>
-          </div>
-          <div className="col-md-4 d-flex flex-column text-center">
-            <div className={`traffic-light shape ${lightThree}`}>
-              <div className="shadow"></div>
-              <div className="light red"></div>
-              <div className="light yellow"></div>
-              <div className="light green"></div>
-            </div>
-            <span className="mt-2">Yaya Grubu</span>
-          </div>          
-          <div className="col-md-12 mt-5">
-            <span className={`countdown-area ${countdownVal !== "" && activeStep !== "" ? '' : 'hidden'}`}>
-              Geri Sayım: <strong>{countdownVal}</strong><br/>
-              Aktif Adım: <strong>{activeStep}</strong>
-            </span>
-          </div>
+          <Light title="Grup 1" className={lights.groupOne}></Light>
+          <Light title="Grup 2" className={lights.groupTwo}></Light>
+          <Light title="Yaya Grubu" className={lights.groupThree}></Light>          
+          <Info activeStep={activeStep} countdownVal={countdownVal}></Info>
         </div>
       </div>
     </div>
